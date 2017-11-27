@@ -16,7 +16,7 @@ export class HomePage {
 
   login(user) {
     // Todo: Handle if the user doesn't exist yet
-    this.http.get(`http://localhost:3000/getData/user/${user}`).subscribe((resp) => {
+    this.http.get(`http://10.12.255.27:3000/getData/user/${user}`).subscribe((resp) => {
       let data = resp.json();
       if (data.users.length > 0) {
         this.name = user;
@@ -50,7 +50,7 @@ export class HomePage {
   }
 
   loadGroup(group) {
-    this.http.get(`http://137.48.255.14:3000/getData/group/${group}`).subscribe((resp) => {
+    this.http.get(`http://10.12.255.27:3000/getData/group/${group}`).subscribe((resp) => {
       const data = resp.json();
       this.groupData = data;
     });
@@ -62,7 +62,7 @@ export class HomePage {
   }
 
   addUser(user, group) {
-    this.http.get(`http://137.48.255.14:3000/submit/user/${group}/${user}`).subscribe((resp) => {
+    this.http.get(`http://10.12.255.27:3000/submit/user/${group}/${user}`).subscribe((resp) => {
       let toast = this.toastCtrl.create({
         message: `Created user ${user}`,
         duration: 3000
@@ -78,7 +78,7 @@ export class HomePage {
   }
 
   editTask(task) {
-    this.http.post(`http://137.48.255.14:3000/edit/task/${task.id}`, JSON.stringify(task)).subscribe((resp) => {
+    this.http.post(`http://10.12.255.27:3000/edit/task/${task.id}`, JSON.stringify(task)).subscribe((resp) => {
       let toast = this.toastCtrl.create({
         message: `${task.taskName} edited`,
         duration: 3000
