@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            Add/Edit Task
+        </ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+                <span ion-text color="primary">Cancel</span>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+      
+<ion-content>
+    <ion-item>
+        <ion-label for="task"> Task:  </ion-label>
+        <ion-input id="task" type="text" [(ngModel)]="task.taskName" placeholder="Thing to do"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label for="desc"> Description:  </ion-label>
+        <ion-input id="desc" type="text" [(ngModel)]="task.description" placeholder="What about the thing"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label for="user"> Assignee:  </ion-label>
+        <ion-select id="user" [(ngModel)]="task.assignee">
+            <ion-option *ngFor="let option of groupData.users">
+                {{option.user}}
+            </ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label for="group"> Group:  </ion-label>
+        <ion-input id="group" type="text" [(ngModel)]="task.groupId" placeholder="Jon Jakub's Group" disabled></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <button ion-button (click)="finish()" [disabled]="(task.taskName && task.assignee && task.descripiton)">Done</button>
+    </ion-item>
+</ion-content>

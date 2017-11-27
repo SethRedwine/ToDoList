@@ -1,14 +1,96 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      To Do 
     </ion-title>
+    <ion-label style="padding-left: 1em;">
+      <span>{{name}}</span><span *ngIf="group"> - <a (click)="toggleGroupDialogue()">{{group}}</a></span>
+    </ion-label>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <span *ngIf="!loggedIn()">
+    <br />
+    <br />
+    <ion-item>
+      <ion-label for="user"> Username:  </ion-label>
+      <ion-input id="user" type="text" [(ngModel)]="loginTmp" placeholder="John Jacobs"></ion-input>
+    </ion-item>
+    <button ion-button (click)="login(loginTmp)">Login</button>
+    <br />
+    <br />
+    <ion-item>
+      <ion-label for="regUser"> Username:  </ion-label>
+      <ion-input id="regUser" type="text" [(ngModel)]="regTmp" placeholder="John Jacobs"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label for="regGroup"> Group:  </ion-label>
+      <ion-input id="regGroup" type="text" [(ngModel)]="regTmp2" placeholder="John Jacob's Group"></ion-input>
+    </ion-item>
+    <button ion-button (click)="addUser(regTmp, regTmp2)">Register</button>
+  </span>
+  
+  <span *ngIf="loggedIn()">
+    <br />
+    <br />
+    <div *ngIf="groupDialogue">
+      <ion-title>
+          Group
+      </ion-title>
+      <ion-card>
+        <ion-list>
+          <ion-item>
+            <ion-label> Select: </ion-label>
+            <ion-select [(ngModel)]="group">
+              <ion-option *ngFor="let id of groups">{{id}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <br />
+          <ion-row>
+            <ion-col col-8>
+              <ion-item>
+                <ion-label > Add:  </ion-label>
+                <ion-input id="group" type="text" [(ngModel)]="groupAdd" placeholder="Group Name"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-4>
+              <button ion-button (click)="addGroup(groupAdd)">Add</button>
+            </ion-col>
+          </ion-row>
+          <br />
+          <ion-row>
+              <button ion-button color="light" (click)="toggleGroupDialogue()" [disabled]="!group">Done</button>
+          </ion-row>
+        </ion-list>
+      </ion-card>
+    </div>
+
+    <div *ngIf="group">
+      <ion-title>
+        <span>Tasks</span>
+        <button ion-button style="float: right; font-size: 16;" (click)="taskModal({})">+</button>
+      </ion-title>
+      <ion-list *ngIf="groupData">
+        <div *ngFor="let task of groupData.tasks">
+          <ion-card>
+              <ion-card-header>
+                <ion-item>
+                  <ion-label>{{task.taskName}}</ion-label>
+                  <ion-checkbox color="light" [(ngModel)]="task.done" (ionChange)="editTask(task)"></ion-checkbox>
+                </ion-item>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-row><strong>Description:</strong> {{task.description}}</ion-row>
+                <ion-row>
+                  <strong>Assignee:</strong> {{task.assignee}}
+                  <ion-item><button ion-button color="light" (click)="taskModal(task)" item-right>Edit</button></ion-item>
+                </ion-row>
+              </ion-card-content>
+          </ion-card>
+        </div>
+      </ion-list>
+    </div>
+
+  </span>
 </ion-content>
