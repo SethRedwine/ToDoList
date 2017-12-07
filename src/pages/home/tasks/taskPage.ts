@@ -32,7 +32,7 @@ export class TaskPage {
   }
 
   loadGroup(group) {
-    this.http.get(`http://localhost:3000/getData/group/${group}`).subscribe((resp) => {
+    this.http.get(`http://sredwineaws01.ddns.net/tdlist/index.cgi/getData/group/${group}`).subscribe((resp) => {
       const data = resp.json();
       console.log(data);
       this.groupData = data;
@@ -51,7 +51,7 @@ export class TaskPage {
 
   addTask() {
     console.log(this.task);
-    this.http.post(`http://localhost:3000/submit/task`, JSON.stringify(this.task)).subscribe((resp) => {
+    this.http.post(`http://sredwineaws01.ddns.net/tdlist/index.cgi/submit/task`, JSON.stringify(this.task)).subscribe((resp) => {
       let toast = this.toastCtrl.create({
         message: `${this.task.taskName} added`,
         duration: 3000
@@ -61,7 +61,7 @@ export class TaskPage {
   }
 
   editTask() {
-    this.http.post(`http://localhost:3000/edit/task/${this.task.id}`, JSON.stringify(this.task)).subscribe((resp) => {
+    this.http.post(`http://sredwineaws01.ddns.net/tdlist/index.cgi/edit/task/${this.task.id}`, JSON.stringify(this.task)).subscribe((resp) => {
       let toast = this.toastCtrl.create({
         message: `${this.task.taskName} edited`,
         duration: 3000
