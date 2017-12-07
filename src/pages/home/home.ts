@@ -24,7 +24,6 @@ export class HomePage {
             this.groups.push(user.groupId);
         });
         this.userTasks = data.tasks;
-
         let toast = this.toastCtrl.create({
           message: 'Logged in successfully',
           duration: 3000
@@ -53,6 +52,11 @@ export class HomePage {
     this.http.get(`http://sredwineaws01.ddns.net/tdlist/index.cgi/getData/group/${group}`).subscribe((resp) => {
       const data = resp.json();
       this.groupData = data;
+      this.groupData.tasks.forEach((task) => {
+        if (task.done > 0) {
+          task.done = true;
+        }
+      });
     });
   }
 
